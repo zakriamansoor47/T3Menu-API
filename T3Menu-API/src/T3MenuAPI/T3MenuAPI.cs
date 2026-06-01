@@ -48,25 +48,18 @@ public class Buttons
         { "Tab", (PlayerButtons)8589934592 }
     };
 }
-[MinimumApiVersion(313)]
+[MinimumApiVersion(369)]
 public class T3MenuAPI : BasePlugin, IPluginConfig<MenuConfig>
 {
     public override string ModuleName => "T3MenuAPI";
-    public override string ModuleVersion => "1.1.0";
-    public override string ModuleAuthor => "T3Marius";
+    public override string ModuleVersion => "1.2.0";
+    public override string ModuleAuthor => "T3Marius, SLAYER";
 
     public static readonly Dictionary<int, T3MenuPlayer> Players = new();
     public static PluginCapability<IT3MenuManager> T3MenuManagerCapability = new("t3menu:manager");
     public static T3MenuAPI Instance { get; set; } = new T3MenuAPI();
     public static readonly Dictionary<CCSPlayerController, T3Menu> ActiveMenus = new();
-    private IT3MenuManager MenuManager = null!;
-    public IT3MenuManager GetMenuManager()
-    {
-        if (MenuManager == null)
-            MenuManager = new PluginCapability<IT3MenuManager>("t3menu:manager").Get()!;
-
-        return MenuManager;
-    }
+    public IT3MenuManager MenuManager = null!;
     private static readonly ConcurrentDictionary<CCSPlayerController, (PlayerButtons Button, DateTime LastPress, int RepeatCount)> ButtonHoldState = new();
     private const float InitialDelay = 0.5f;
     private const float RepeatDelay = 0.1f;
@@ -77,6 +70,7 @@ public class T3MenuAPI : BasePlugin, IPluginConfig<MenuConfig>
         Config = config;
         Config.Update();
     }
+
     public override void Load(bool hotReload)
     {
         Instance = this;
@@ -155,6 +149,8 @@ public class T3MenuAPI : BasePlugin, IPluginConfig<MenuConfig>
 
     public override void OnAllPluginsLoaded(bool hotReload)
     {
+        // just get the menu manager OnAllPluginsLoaded and that's it no more GetMenuManager() everytime.
+        if (MenuManager == null) MenuManager = new PluginCapability<IT3MenuManager>("t3menu:manager").Get() ?? throw new Exception("T3MenuAPI not found.");
         RemoveListener<OnTick>(OnTick);
         RegisterListener<OnTick>(OnTick);
     }
@@ -290,7 +286,7 @@ public class T3MenuAPI : BasePlugin, IPluginConfig<MenuConfig>
                     Instance.Logger.LogError("Player menu is null");
                     return false;
                 }
-                GetMenuManager().InvokeMenuClose(player.player, menu);
+                MenuManager.InvokeMenuClose(player.player, menu);
                 Server.NextFrame(() =>
                 {
                     player.Close();
@@ -338,7 +334,7 @@ public class T3MenuAPI : BasePlugin, IPluginConfig<MenuConfig>
                 {
                     return false;
                 }
-                GetMenuManager().InvokeMenuClose(player.player, currentMenu);
+                MenuManager.InvokeMenuClose(player.player, currentMenu);
 
                 Server.NextFrame(() =>
                 {

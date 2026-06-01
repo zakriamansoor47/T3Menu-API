@@ -144,7 +144,7 @@ public class T3Menu : IT3Menu
     }
     public void Close(CCSPlayerController player)
     {
-        IT3MenuManager? manager = Instance.GetMenuManager() ?? throw new Exception("T3MenuAPI API was not found!");
+        IT3MenuManager? manager = Instance.MenuManager ?? throw new Exception("T3MenuAPI API was not found!");
         manager.CloseMenu(player);
     }
     public void AddTextOption(string display, bool selectable = false)
