@@ -1,11 +1,19 @@
 # T3Menu-API
+
 T3Menu-API is a plugin created on counterstrikesharp with purpose of creating a better , refined menu controlled with player buttons.
 
 The menu controls are fully confiugarble from config located at **counterstrikesharp/configs/plugins/T3Menu-API/T3Menu-API.toml**
+
+# Requirements
+
+- [CounterStrikeSharp](https://github.com/roflmuffin/CounterStrikeSharp) v1.0.369 or higher
+
 # Install
+
 After you extract the T3Menu-API folder, Drag&Drop addons folder into game/csgo and you're good to go.
 
 # Creating Menu Tutorial
+
 ```C#
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
@@ -122,6 +130,7 @@ public class MenuExample : BasePlugin
 ```
 
 # Current OptionTypes:
+
 ```
 Bool
 Button
@@ -130,7 +139,8 @@ Slider
 Input
 ```
 
-# Config 
+# Config
+
 ```toml
 [Controls]           # Move/Select/Back/Exit will be shown in controls info at the bottom of the menu.
 Move = "[W/S]"
@@ -163,7 +173,9 @@ SoundEventFiles = []  # if you have custom sounds, add the soundeventfile path h
 [Settings]
 ShowDeveloperInfo = true
 ```
+
 # All buttons the menu have.
+
 ```toml
 Alt1
 Alt2
@@ -193,12 +205,17 @@ Weapon2
 Zoom
 Tab
 ```
+
 Credits to:
+
+[@zakriamansoor47](https://github.com/zakriamansoor47) , for updating the plugin to net10 and helping with some code.
 
 [@interesting](https://github.com/Interesting-exe) , took example from him with classes
 
 [@ssypchenko](https://github.com/ssypchenko), arrows ideas from him.
 
 [@KitsuneLab Developments](https://github.com/KitsuneLab-Development), inspired from their menu style
+
 # Video
+
 [https://imgur.com/ufu2dI9](https://github.com/user-attachments/assets/a8ac4c8d-4aee-4544-bd2f-5ae7ed230ea6)

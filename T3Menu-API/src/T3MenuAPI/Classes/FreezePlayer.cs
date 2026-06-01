@@ -9,7 +9,7 @@ public static class Library
     public static HashSet<CCSPlayerController> _frozenPlayers = new HashSet<CCSPlayerController>();
     public static void Freeze(this CCSPlayerController player)
     {
-        if (player.PlayerPawn.Value == null)
+        if (player == null || !player.IsValid || player.PlayerPawn.Value == null || player.Connected != PlayerConnectedState.Connected || player.TeamNum < 2 || player.PlayerPawn.Value.LifeState != (byte)LifeState_t.LIFE_ALIVE)
             return;
 
         if (!_playerSavedSpeed.ContainsKey(player))
@@ -21,7 +21,7 @@ public static class Library
     }
     public static void Unfreeze(this CCSPlayerController player)
     {
-        if (player.PlayerPawn.Value == null)
+        if (player == null || !player.IsValid || player.PlayerPawn.Value == null || player.Connected != PlayerConnectedState.Connected || player.TeamNum < 2 || player.PlayerPawn.Value.LifeState != (byte)LifeState_t.LIFE_ALIVE)
             return;
 
         _frozenPlayers.Remove(player);
@@ -39,6 +39,9 @@ public static class Library
     {
         foreach (var player in _frozenPlayers)
         {
+            if (player == null || !player.IsValid || player.PlayerPawn.Value == null || player.Connected != PlayerConnectedState.Connected || player.TeamNum < 2 || player.PlayerPawn.Value.LifeState != (byte)LifeState_t.LIFE_ALIVE)
+                continue;
+
             var pawn = player.PlayerPawn.Value;
 
             if (pawn != null)

@@ -7,11 +7,11 @@ using CounterStrikeSharp.API.Core.Attributes;
 using CounterStrikeSharp.API.Modules.Commands;
 using static T3MenuAPI.Classes.Library;
 using System.Collections.Concurrent;
-using Microsoft.Extensions.Logging;
 using Timer = CounterStrikeSharp.API.Modules.Timers.Timer;
 using T3MenuAPI.Classes;
 using CounterStrikeSharp.API.Modules.Extensions;
 using CounterStrikeSharp.API.Modules.Timers;
+using Microsoft.Extensions.Logging;
 
 namespace T3MenuAPI;
 
@@ -182,10 +182,7 @@ public class T3MenuAPI : BasePlugin, IPluginConfig<MenuConfig>
     {
         DateTime now = DateTime.Now;
 
-        foreach (var pl in Utilities.GetPlayers())
-        {
-            UpdateFrozenPlayers();
-        }
+        UpdateFrozenPlayers();
 
         foreach (var player in Players.Values.Where(p => p.MainMenu != null))
         {

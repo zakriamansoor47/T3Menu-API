@@ -29,7 +29,7 @@ namespace T3MenuAPI
             {
                 _refreshTimers[_playerToRefresh] = Instance.AddTimer(repeat, () =>
                 {
-                    if (_playerToRefresh.IsValid && _playerToRefresh.Connected == PlayerConnectedState.PlayerConnected)
+                    if (_playerToRefresh.IsValid && _playerToRefresh.Connected == PlayerConnectedState.Connected)
                     {
                         onTick?.Invoke();
                         RefreshForPlayer(_playerToRefresh, _menuToRefresh);
@@ -62,7 +62,7 @@ namespace T3MenuAPI
             {
                 _refreshTimers[_playerToRefresh] = Instance.AddTimer(repeat, () =>
                 {
-                    if (_playerToRefresh.IsValid && _playerToRefresh.Connected == PlayerConnectedState.PlayerConnected)
+                    if (_playerToRefresh.IsValid && _playerToRefresh.Connected == PlayerConnectedState.Connected)
                     {
                         RefreshForPlayer(_playerToRefresh, _menuToRefresh);
                     }
